@@ -9,6 +9,9 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from scikeras.wrappers   import KerasRegressor
 from sklearn.model_selection import GridSearchCV
+import torch
+import torch.nn as nn
+import torch.optim as optim
 
 stemmer = SnowballStemmer('english')
 stemming = input("Do you want to use stemming? (y/n): ")
@@ -54,58 +57,3 @@ y = df_train['relevance']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-def create_model(optimizer='adam', init='he_uniform'):
-    model = Sequential()
-    model.add(Dense(64, input_dim=X_train.shape[1], kernel_initializer=init, activation='relu'))
-    model.add(Dropout(0.2))
-    model.add(Dense(32, kernel_initializer=init, activation='relu'))
-    model.add(Dropout(0.2))
-    model.add(Dense(1, kernel_initializer=init))
-    model.compile(loss='mean_squared_error', optimizer=optimizer)
-    return model
-
-model = KerasRegressor(build_fn=create_model, verbose=0)
-print("model :)")
-# Define the grid search parameters
-param_grid = {
-    'batch_size': [4],
-    'epochs': [2],
-    'optimizer': ['Adam', " SGD"],
-}
-
-start = time.time()
-
-# Create Grid Search
-grid = GridSearchCV(estimator=model, param_grid=param_grid, n_jobs=-1, cv=3, scoring='neg_mean_squared_error')
-
-# Fit the model
-grid_result = grid.fit(X_train, y_train)
-
-# Show results
-print(grid_result.cv_results_)
-
-print("AANAN")
-
-#show rmse for each combination of parameters
-means = grid_result.cv_results_['mean_test_score']
-stds = grid_result.cv_results_['std_test_score']
-params = grid_result.cv_results_['params']
-for mean, stdev, param in zip(means, stds, params):
-    print(f"Mean: {mean}, Stdev: {stdev} with: {param}")
-
-rmse = mean_squared_error(y_test, grid_result.predict(X_test), squared=False)
-print(f"Neural Network RMSE: {rmse}")
-
-
-
-
-# summarize results
-print(f"Best: {grid_result.best_score_} using {grid_result.best_params_}")
-best_model = grid_result.best_estimator_
-
-y_pred = best_model.predict(X_test)
-rmse = mean_squared_error(y_test, y_pred, squared=False)
-print(f"Neural Network RMSE: {rmse}")
-
-end = time.time()
-print("Time taken: ", end-start)
