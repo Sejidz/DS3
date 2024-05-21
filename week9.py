@@ -7,7 +7,7 @@ import time
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
-from tensorflow.keras.wrappers.scikit_learn import KerasRegressor
+from scikeras.wrappers   import KerasRegressor
 from sklearn.model_selection import GridSearchCV
 
 stemmer = SnowballStemmer('english')
@@ -15,7 +15,7 @@ stemming = input("Do you want to use stemming? (y/n): ")
 
 df_train = pd.read_csv('train.csv/train.csv', encoding="ISO-8859-1")
 df_test = pd.read_csv('test.csv/test.csv', encoding="ISO-8859-1")
-df_pro_desc = pd.read_csv('product_descriptions.csv')
+df_pro_desc = pd.read_csv('product_descriptions.csv/product_descriptions.csv')
 num_train = df_train.shape[0]
 
 def str_stemmer(s):
