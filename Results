@@ -1,0 +1,31 @@
+Linear Regression without stemming: Time: 0.015574
+                                    RMSE: 0.52091519
+
+Linear Regression with stemming:    Time: 0.01916
+                                    RMSE: 0.492451
+
+DecisionTree Regression without stemming: Time: 0.46599864959716797
+                                          RMSE: 0.7181482762843584
+
+DecisionTree Regression with stemming:  Time: 0.43680596351623535
+                                        RMSE: 0.6742531977718822
+
+KNeighborsRegression without stemming:  Time: 0.18526029586791992
+                                        RMSE: 0.5689887407675934
+
+KNeighborsRegression  with stemming:    Time: 0.19555091857910156
+                                        RMSE: 0.5658886067198533
+
+RandomForrest Regression without stemming: Time: 8.248200178146362
+                                           RMSE: 0.512613133984399
+
+RandomForrest Regression with stemming:    Time: 7.234123706817627
+                                           RMSE: 0.4817214529959809
+
+
+                                           RMSE: 0.5125277359083114 new_feature
+                                           RMSE: 0.5125745597611963 new_feature 2
+                                           RMSE: 0.5126297309910745 new_feature 3
+                                           RMSE:   0.512497818636889  new_feature, new_feature 2
+                                            RMSE: 0.5125910262610616 new_feature 2, new_feature 3
+                                            RMSE: 0.5125231379685947 new_feature, new_feature 2, new_feature 3
